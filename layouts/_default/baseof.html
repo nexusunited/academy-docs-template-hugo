@@ -1,0 +1,42 @@
+{{- partial "partials/functions/warnings.html" .Site -}}
+{{- partial "partials/functions/init.html" . -}}
+<!DOCTYPE html>
+<html
+        lang="{{ with .Site.Params.isoCode | default (.Site.LanguageCode | default "en") }}
+{{- . -}}
+{{ end }}"
+dir="{{ if .Site.Params.rtl | default false -}}
+rtl
+{{- else -}}
+ltr
+{{- end }}"
+class="scroll-smooth"
+data-default-appearance="{{ .Site.Params.defaultAppearance | default "light" }}"
+data-auto-appearance="{{ .Site.Params.autoSwitchAppearance | default "true" }}"
+>
+{{- partial "head.html" . -}}
+<body
+        class="flex flex-col h-screen px-6 m-auto text-lg leading-7 bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32"
+>
+
+<div>
+
+
+    {{- partial "partials/menu.html" . -}}
+
+
+    <main class="py-10 lg:pl-72">
+        <div class="px-4 sm:px-6 lg:px-8">
+            {{ block "main" . }}{{ end }}
+        </div>
+    </main>
+
+    {{- partial "footer.html" . -}}
+    {{ if .Site.Params.enableSearch | default false }}
+    {{- partial "search.html" . -}}
+    {{ end }}
+
+
+</div>
+</body>
+</html>
